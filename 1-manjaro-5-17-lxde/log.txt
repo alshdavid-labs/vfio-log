@@ -1,0 +1,83 @@
+➜  ~ sudo cat /var/log/libvirt/qemu/gpu-test.log
+2022-02-10 12:54:35.223+0000: starting up libvirt version: 8.0.0, qemu version: 6.2.0, kernel: 5.17.0-1-MANJARO, hostname: ALSH-DESKTOP-LINUX
+LC_ALL=C \
+PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/snapd/snap/bin \
+HOME=/var/lib/libvirt/qemu/domain-1-gpu-test \
+XDG_DATA_HOME=/var/lib/libvirt/qemu/domain-1-gpu-test/.local/share \
+XDG_CACHE_HOME=/var/lib/libvirt/qemu/domain-1-gpu-test/.cache \
+XDG_CONFIG_HOME=/var/lib/libvirt/qemu/domain-1-gpu-test/.config \
+/usr/bin/qemu-system-x86_64 \
+-name guest=gpu-test,debug-threads=on \
+-S \
+-object '{"qom-type":"secret","id":"masterKey0","format":"raw","file":"/var/lib/libvirt/qemu/domain-1-gpu-test/master-key.aes"}' \
+-machine pc-q35-6.2,usb=off,vmport=off,dump-guest-core=off,memory-backend=pc.ram \
+-accel kvm \
+-cpu qemu64,topoext=on \
+-m 1024 \
+-object '{"qom-type":"memory-backend-ram","id":"pc.ram","size":1073741824}' \
+-overcommit mem-lock=off \
+-smp 8,sockets=1,dies=1,cores=4,threads=2 \
+-uuid a2b31377-c26b-403c-baba-fa97673e4c52 \
+-display none \
+-no-user-config \
+-nodefaults \
+-chardev socket,id=charmonitor,fd=31,server=on,wait=off \
+-mon chardev=charmonitor,id=monitor,mode=control \
+-rtc base=utc,driftfix=slew \
+-global kvm-pit.lost_tick_policy=delay \
+-no-hpet \
+-no-shutdown \
+-global ICH9-LPC.disable_s3=1 \
+-global ICH9-LPC.disable_s4=1 \
+-boot strict=on \
+-device pcie-root-port,port=16,chassis=1,id=pci.1,bus=pcie.0,multifunction=on,addr=0x2 \
+-device pcie-root-port,port=17,chassis=2,id=pci.2,bus=pcie.0,addr=0x2.0x1 \
+-device pcie-root-port,port=18,chassis=3,id=pci.3,bus=pcie.0,addr=0x2.0x2 \
+-device pcie-root-port,port=19,chassis=4,id=pci.4,bus=pcie.0,addr=0x2.0x3 \
+-device pcie-root-port,port=20,chassis=5,id=pci.5,bus=pcie.0,addr=0x2.0x4 \
+-device pcie-root-port,port=21,chassis=6,id=pci.6,bus=pcie.0,addr=0x2.0x5 \
+-device qemu-xhci,p2=15,p3=15,id=usb,bus=pci.2,addr=0x0 \
+-device virtio-serial-pci,id=virtio-serial0,bus=pci.3,addr=0x0 \
+-audiodev '{"id":"audio1","driver":"none"}' \
+-device vfio-pci,host=0000:0b:00.0,id=hostdev0,bus=pci.1,addr=0x0,romfile=/usr/share/qemu/vgagpu.2.rom \
+-device vfio-pci,host=0000:0b:00.1,id=hostdev1,bus=pci.5,addr=0x0,romfile=/usr/share/qemu/vgagpu.2.rom \
+-device virtio-balloon-pci,id=balloon0,bus=pci.4,addr=0x0 \
+-sandbox on,obsolete=deny,elevateprivileges=deny,spawn=deny,resourcecontrol=deny \
+-msg timestamp=on
+➜  ~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

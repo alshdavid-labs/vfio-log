@@ -1,0 +1,1 @@
+Older bios has a bug with `amdgpu`
