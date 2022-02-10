@@ -9,6 +9,12 @@
 |GPU|AMD 5700XT|
 |Motherboard|Gigabyte X570 AORUS PRO WIFI AM4 (latest bios)|
 
+## Setup
+
+Followed this guide to set up GRUB and the KVM hooks
+
+https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/2)-Editing-GRUB
+
 ## Method
 
 Folders are numbered as my attempts, each containing a changelog and debug logging
