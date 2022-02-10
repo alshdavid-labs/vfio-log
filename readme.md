@@ -15,6 +15,15 @@ Followed this guide to set up GRUB and the KVM hooks
 
 https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/2)-Editing-GRUB
 
+## VBIOS
+
+I have 4 vbios files
+
+1) downloaded from that site everyone knows
+2) dumped from cpu-z
+3) dumpled in linux
+4) intentionally wrong bios downloaded from that site as a sanity check to see if the logs were different
+
 ## Method
 
 Folders are numbered as my attempts, each containing a changelog and debug logging
