@@ -30,11 +30,15 @@ Folders are numbered as my attempts, each containing a changelog and debug loggi
 
 I ssh into my desktop from my laptop and collect the debug data from `dmesg --follow` and `/var/log/libvirt/qemu/gpu-test/log`
 
+For the `dmesg` files, I put in lots of spaces right when the VM starts
+
 I have a minimal VM designed to boot into a linux DVD - if I see anything on the screen it's a sucess.
 
 I am trying various vbios roms and configurations
 
 Every attempt has ended in a blank screen and nothing displaying
+
+folders labeled `tty` are Linux booted with `3` added to the GRUB boot options so I would have no graphical interface. I would launch the vm using `virsh start gpu-test`
 
 I have gotten to the point where the debug logs emit no more errors but still only a blank screen. Not sure where to from here.
 
