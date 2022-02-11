@@ -1,6 +1,6 @@
 <domain type="kvm">
-  <name>gpu-test</name>
-  <uuid>a2b31377-c26b-403c-baba-fa97673e4c52</uuid>
+  <name>gpu-test-display</name>
+  <uuid>f16046c3-b8bc-4de1-9b9c-1249e5f4acdc</uuid>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://debian.org/debian/11"/>
@@ -11,11 +11,10 @@
   <vcpu placement="static">8</vcpu>
   <os>
     <type arch="x86_64" machine="pc-q35-6.2">hvm</type>
-    <boot dev="hd"/>
   </os>
   <features>
     <acpi/>
-    <apic/>a
+    <apic/>
     <vmport state="off"/>
   </features>
   <cpu mode="custom" match="exact" check="partial">
@@ -37,11 +36,15 @@
   </pm>
   <devices>
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
+    <disk type="file" device="disk">
+      <driver name="qemu" type="qcow2"/>
+      <source file="/var/lib/libvirt/images/gpu-test2.qcow2"/>
+      <target dev="sdb" bus="sata"/>
+      <boot order="2"/>
+      <address type="drive" controller="0" bus="0" target="0" unit="1"/>
+    </disk>
     <controller type="usb" index="0" model="qemu-xhci" ports="15">
       <address type="pci" domain="0x0000" bus="0x02" slot="0x00" function="0x0"/>
-    </controller>
-    <controller type="sata" index="0">
-      <address type="pci" domain="0x0000" bus="0x00" slot="0x1f" function="0x2"/>
     </controller>
     <controller type="pci" index="0" model="pcie-root"/>
     <controller type="pci" index="1" model="pcie-root-port">
@@ -77,23 +80,30 @@
     <controller type="virtio-serial" index="0">
       <address type="pci" domain="0x0000" bus="0x03" slot="0x00" function="0x0"/>
     </controller>
+    <controller type="scsi" index="0" model="virtio-scsi">
+      <address type="pci" domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
+    </controller>
+    <controller type="sata" index="0">
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x1f" function="0x2"/>
+    </controller>
+    <interface type="network">
+      <mac address="52:54:00:b1:9d:01"/>
+      <source network="default"/>
+      <model type="virtio"/>
+      <address type="pci" domain="0x0000" bus="0x05" slot="0x00" function="0x0"/>
+    </interface>
     <input type="mouse" bus="ps2"/>
     <input type="keyboard" bus="ps2"/>
+    <graphics type="spice" autoport="yes">
+      <listen type="address"/>
+      <image compression="off"/>
+      <gl enable="no"/>
+    </graphics>
     <audio id="1" type="none"/>
-    <hostdev mode="subsystem" type="pci" managed="yes">
-      <source>
-        <address domain="0x0000" bus="0x0b" slot="0x00" function="0x0"/>
-      </source>
-      <rom file="/usr/share/qemu/vgagpu.2.rom"/>
-      <address type="pci" domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
-    </hostdev>
-    <hostdev mode="subsystem" type="pci" managed="yes">
-      <source>
-        <address domain="0x0000" bus="0x0b" slot="0x00" function="0x1"/>
-      </source>
-      <rom file="/usr/share/qemu/vgagpu.2.rom"/>
-      <address type="pci" domain="0x0000" bus="0x05" slot="0x00" function="0x0"/>
-    </hostdev>
+    <video>
+      <model type="vga" vram="16384" heads="1" primary="yes"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x0"/>
+    </video>
     <memballoon model="virtio">
       <address type="pci" domain="0x0000" bus="0x04" slot="0x00" function="0x0"/>
     </memballoon>
