@@ -1,0 +1,46 @@
+➜  ~ sudo virsh list --all
+ Id   Name                  State
+--------------------------------------
+ -    gpu-test              shut off
+ -    gpu-test-display      shut off
+ -    gpu-test-no-display   shut off
+
+➜  ~ sudo virsh start gpu-test-no-display
+Domain 'gpu-test-no-display' started
+
+➜  ~ sudo virsh net-dhcp-leases default
+ Expiry Time           MAC address         Protocol   IP address           Hostname         Client ID or DUID
+------------------------------------------------------------------------------------------------------------------
+ 2022-02-11 16:22:30   52:54:00:71:4c:8b   ipv4       192.168.122.123/24   localhost-live   01:52:54:00:71:4c:8b
+ 2022-02-11 16:47:03   52:54:00:df:42:98   ipv4       192.168.122.98/24    -                01:52:54:00:df:42:98
+
+➜  ~ ping 192.168.122.98
+PING 192.168.122.98 (192.168.122.98) 56(84) bytes of data.
+64 bytes from 192.168.122.98: icmp_seq=1 ttl=64 time=0.301 ms
+64 bytes from 192.168.122.98: icmp_seq=2 ttl=64 time=0.246 ms
+^C
+--- 192.168.122.98 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1003ms
+rtt min/avg/max/mdev = 0.246/0.273/0.301/0.027 ms
+
+➜  ~ ssh virtual@192.168.122.98
+Last login: Fri Feb 11 15:47:39 2022 from 192.168.122.1
+[virtual@fedora ~]$ exit
+logout
+Connection to 192.168.122.98 closed.
+
+➜  ~ sudo virsh shutdown gpu-test-no-display
+Domain 'gpu-test-no-display' is being shutdown
+
+➜  ~ sudo virsh start gpu-test
+Domain 'gpu-test' started
+
+➜  ~ ping 192.168.122.123
+PING 192.168.122.123 (192.168.122.123) 56(84) bytes of data.
+From 192.168.122.1 icmp_seq=1 Destination Host Unreachable
+From 192.168.122.1 icmp_seq=2 Destination Host Unreachable
+From 192.168.122.1 icmp_seq=3 Destination Host Unreachable
+^C
+--- 192.168.122.123 ping statistics ---
+5 packets transmitted, 0 received, +3 errors, 100% packet loss, time 4051ms
+pipe 3
