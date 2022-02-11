@@ -7,3 +7,6 @@ I start a VM that does not have any display configuration, they share a hard dri
 I then start my VM that requests PCI passthrough, and attempt the same thing
 
 The VM is not responsive so it doesn't boot
+
+
+Manjaro 5.17

@@ -38,7 +38,7 @@ I am trying various vbios roms and configurations
 
 Every attempt has ended in a blank screen and nothing displaying
 
-folders labeled `tty` are Linux booted with `3` added to the GRUB boot options so I would have no graphical interface. I would launch the vm using `virsh start gpu-test`
+folders labeled `tty` are Linux booted with run level `3` added to the GRUB boot options so I would have no graphical interface. I would launch the vm using `virsh start gpu-test`
 
 I have gotten to the point where the debug logs emit no more errors but still only a blank screen. Not sure where to from here.
 
